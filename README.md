@@ -1,6 +1,6 @@
 # Bio-Inspired Navigation: Hybridizing Stigmergy and RL in Multi-Agent Systems
 
-**Author:** *Sriram S Rajan - ICSR07797*  
+**Author:** *Sriram S Rajan*  
 **Submitted to:** *Dr. Ganga Prasath S & Dr. Danny Raj M*  
 **Department of Applied Mechanics and Biomedical Engineering, IIT Madras**
 
