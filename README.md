@@ -120,22 +120,19 @@ graph TD
 
 ## Algorithmic Framework
 
-### Phase 1: Scout Agent (Exploration + Memory Creation)
+### Phase 1: The Scout (Explorer)
+The Scout initializes with no prior knowledge and performs three sub-behaviors:
 
-The **Scout** performs terrain exploration with obstacle avoidance:
+* **Stochastic Search:** The ant initiates a random walk where the heading $\theta$ is sampled continuously from a uniform distribution:
+    $$\theta \in [0, 2\pi)$$
 
-**Stochastic Search:**
-- Heading sampled from uniform distribution: $\theta \in [0, 2\pi)$
-- Biased toward food location with random perturbations
+* **Path Integration:** It tracks global displacement by summing step vectors to calculate the Homing Vector $\vec{H}$:
+    $$\vec{H} = \sum_{i=0}^{N} d \cdot [\cos(\theta_i), \sin(\theta_i)]$$
 
-**Path Integration:**
-- Vector summation: $\vec{H} = \sum_{i=0}^{N} d \cdot [\cos(\theta_i), \sin(\theta_i)]$
-- Maintains global displacement relative to nest
+* **Odor-Gated Anemotaxis:** Upon detecting the food scent, it switches behavior. Instead of following a trail, it surges **upwind** (towards the wind source). The heading is biased toward the upwind direction ($\theta_{upwind}$):
+    $$\theta_{new} = \theta_{upwind} + \delta, \quad \delta \sim \mathcal{U}(-1.5, 1.5)$$
 
-**Bounce-Back Avoidance:**
-- Collision detection via Euclidean distance
-- Dynamic heading adjustment around obstacles
-- Stores successful return path in shared memory
+* **Return with Avoidance:** It uses a physical "Bounce-Back" mechanic to navigate around obstacles while returning to the nest, saving the successful path to memory.
 
 ---
 
