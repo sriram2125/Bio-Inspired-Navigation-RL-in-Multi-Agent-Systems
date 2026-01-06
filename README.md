@@ -206,7 +206,7 @@ Where:
 
 
 
-![My Image](QTABLE ANT STATE .png)
+![Alt Text Description]([url-to-image.png](https://github.com/sriram2125/Bio-Inspired-Navigation-RL-in-Multi-Agent-Systems/blob/fc58c25e167268612f6e54a9450b63b26ef914a1/QTABLE%20ANT%20STATE%20.png))
 
 
 
