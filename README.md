@@ -260,7 +260,7 @@ python3 oneshotlearning_rl.py
 
 ### Simulation Output
 
-<img src="Stigmergy_Live_Output.gif" width="700" alt="Hybrid Navigation System">
+![Animation Demo](Stigmergy_Live_Output.gif)
 
 *Animation showing the complete three-phase navigation: Scout exploration, Learner stigmergy, and RL-based recovery*
 
