@@ -47,60 +47,73 @@ The system demonstrates three distinct behavioral modes representing different a
 ### Information Flow: Stigmergy + Reinforcement Learning
 
 ```mermaid
-graph TB
+
+
+
+
+graph TD
     %% --- STYLING ---
-    classDef nest fill:#2e7d32,stroke:#fff,stroke-width:2px,color:#fff;
-    classDef food fill:#c62828,stroke:#fff,stroke-width:2px,color:#fff;
-    classDef scout fill:#1565c0,stroke:#fff,stroke-width:2px,color:#fff;
-    classDef memory fill:#6a1b9a,stroke:#fff,stroke-width:2px,stroke-dasharray: 5 5,color:#fff;
-    classDef learner fill:#2e7d32,stroke:#fff,stroke-width:2px,color:#fff;
-    classDef lost fill:#ef6c00,stroke:#fff,stroke-width:2px,color:#fff;
-    classDef rl fill:#d81b60,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef whiteRect fill:#ffffff,stroke:#9e9e9e,stroke-width:1px,color:#000;
+    classDef diamondNode fill:#ffffff,stroke:#9e9e9e,stroke-width:1px,color:#000;
+    classDef greenCircle fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#000;
+    classDef darkRect fill:#333333,stroke:#333,stroke-width:1px,color:#fff;
+    classDef pinkRect fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000;
+    classDef blueCyl fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
+
+    %% --- PHASE 1: SCOUT ---
+    Start1[Nest / Start]:::whiteRect
+    Search[Stochastic Search]:::whiteRect
+    Food1{Found Food?}:::diamondNode
+    Return[Path Integration]:::whiteRect
+    Bounce[Obstacle Bounce]:::darkRect
     
-    %% --- NODES ---
-    Nest((NEST)):::nest
-    Food((FOOD)):::food
-    
-    %% PHASE 1
-    S1[Scout: Random Search]:::scout
-    S2[Obstacle Avoidance]:::scout
-    S3[Path Integration]:::scout
-    
-    %% MEMORY
-    Mem[(Pheromone Memory<br/>Stigmergy)]:::memory
-    
-    %% PHASE 2
-    L1[Learner: Read Memory]:::learner
-    L2[Direct Navigation]:::learner
-    
-    %% PHASE 3
-    Lost1[Lost: Follow Trail]:::lost
-    Lost2{Trail Evaporated?}:::lost
-    RL1[Q-Learning Init]:::rl
-    RL2[Bellman Update]:::rl
-    RL3[Optimal Path]:::rl
-    
+    %% --- MEMORY ---
+    Mem[(Shared Memory)]:::blueCyl
+
+    %% --- PHASE 2: LEARNER ---
+    Start2[Spawn Learner]:::whiteRect
+    Stigmergy[Read Memory]:::whiteRect
+    Ballistic[Ballistic Motion]:::whiteRect
+
+    %% --- PHASE 3: RL ---
+    Crisis{Trail Evaporates?}:::diamondNode
+    InitRL[Init Q-Learning]:::pinkRect
+    Action{Action Selection}:::diamondNode
+    Env((Environment)):::greenCircle
+    Reward[Reward / Penalty]:::darkRect
+    Update[Bellman Update]:::pinkRect
+
     %% --- CONNECTIONS ---
-    Nest --> S1
-    S1 --> S2
-    S2 --> S3
-    S3 --> Food
-    S3 ==>|Write| Mem
-    
-    Nest --> L1
-    Mem -.->|Read| L1
-    L1 --> L2
-    L2 --> Food
-    
-    Nest --> L1
-    L1 --> Lost1
-    Lost1 --> Food
-    Food --> Lost2
-    Lost2 -->|Yes| RL1
-    RL1 --> RL2
-    RL2 -->|Iterate| RL2
-    RL2 --> RL3
-    RL3 --> Nest
+    Start1 --> Search
+    Search --> Food1
+    Food1 -->|No| Search
+    Food1 -->|Yes| Return
+    Return <--> Bounce
+    Return -->|Write Path| Mem
+
+    Start2 --> Stigmergy
+    Mem -.->|Read| Stigmergy
+    Stigmergy --> Ballistic
+    Ballistic --> Crisis
+
+    Crisis -->|Yes| InitRL
+    InitRL --> Action
+    Action --> Env
+    Env --> Reward
+    Reward --> Update
+    Update -->|Decay Epsilon| Action
+
+
+
+
+
+
+
+
+
+
+
+
 ```
 
 ---
