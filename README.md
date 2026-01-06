@@ -195,11 +195,6 @@ Where:
 
 ## Implementation
 
-### Technical Details
-
-**Language:** Python 3.x  
-**Dependencies:** NumPy, Matplotlib
-
 **Core Components:**
 
 | Component | Implementation |
@@ -208,6 +203,17 @@ Where:
 | **Memory Mechanism** | Shared array storing path coordinates |
 | **Q-Table** | NumPy array (24 states × 3 actions) |
 | **State Discretization** | Angular binning + binary obstacle sensor |
+
+
+
+![My Image](QTABLE ANT STATE .png)
+
+
+
+
+
+
+
 
 ### Environmental Constraints
 
